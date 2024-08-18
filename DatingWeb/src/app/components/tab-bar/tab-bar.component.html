@@ -1,0 +1,8 @@
+<div class="fixed-buttom">
+    <nav tuiTabBar class="tabs" [(activeItemIndex)]="activeItemIndex">
+        <button *ngFor="let item of items" tuiTabBarItem [badge]="item.badge" [icon]="item.icon"
+            (click)="onClick(item)">
+            {{ item.text }}
+        </button>
+    </nav>
+</div>

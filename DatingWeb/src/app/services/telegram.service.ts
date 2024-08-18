@@ -2,15 +2,6 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { on } from '@telegram-apps/sdk';
 
-interface TgButton {
-  show(): void;
-  hide(): void;
-  setText(text: string): void;
-  onClick(fn: Function): void;
-  offClick(fn: Function): void;
-  enable(): void;
-  disable(): void;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -34,14 +25,6 @@ export class TelegramService {
         this.tg.isVerticalSwipesEnabled = false;
     }
   });
-
-  get MainButton(): TgButton {
-    return this.tg.MainButton;
-  }
-
-  get BackButton(): TgButton {
-    return this.tg.BackButton;
-  }
 
   sendData(data: object) {
     this.tg.sendData(JSON.stringify(data));

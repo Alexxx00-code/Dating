@@ -1,20 +1,24 @@
-import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+
+import { Component } from '@angular/core';
 import { TelegramService } from './services/telegram.service';
+import {TuiAlertService} from '@taiga-ui/core';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [TelegramService]
 })
 export class AppComponent {
   title = 'DatingWeb';
 
-  telegram = inject(TelegramService);
-  constructor() {
-    this.telegram.ready();
+  constructor(private telegram: TelegramService,
+    private tuiAlertService: TuiAlertService) {
+   telegram.ready();
+  }
+
+  protected showNotification(): void {
+      this.tuiAlertService
+          .open('Basic <strong>HTML</strong>', {label: 'With a heading!'})
+          .subscribe();
   }
 }
