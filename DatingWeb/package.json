@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.json",
     "build": "ng build --configuration production --output-path ../DatingApi/wwwroot",
+    "dev-build": "ng build --output-path ../DatingApi/wwwroot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -32,6 +33,7 @@
     "@taiga-ui/styles": "^4.2.0",
     "@telegram-apps/sdk": "^1.1.3",
     "rxjs": "~7.8.0",
+    "taiga-ui": "^4.2.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },

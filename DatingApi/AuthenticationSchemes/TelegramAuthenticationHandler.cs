@@ -18,7 +18,7 @@ namespace DatingApi.AuthenticationSchemes
 
     public class TelegramAuthenticationHandler : AuthenticationHandler<TelegramAuthenticationSchemeOptions>
     {
-        private readonly string botToken = "7498657388:AAHNy3QSh764sQplvU_2kI_E5ucvHR43Rb4";
+        private readonly string botToken = "7544862344:AAGpAIzdLAe0oAZ2fyczCrRZd-eHcx0_kuY";
 
         public TelegramAuthenticationHandler(
             IOptionsMonitor<TelegramAuthenticationSchemeOptions> options,

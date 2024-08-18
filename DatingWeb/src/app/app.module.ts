@@ -18,6 +18,8 @@ import { TAIGA_UI_MODULES } from './all-ui-module.ts/taiga-ui-all-module';
 import { AppBarComponent } from './components/app-bar/app-bar.component';
 import { MainContainerComponent } from './components/main-container/main-container.component';
 import { TabBarComponent } from './components/tab-bar/tab-bar.component';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { TokenInterceptor } from './services/token.interceptor ';
 
 @NgModule({
   declarations: [
@@ -31,13 +33,15 @@ import { TabBarComponent } from './components/tab-bar/tab-bar.component';
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
+    provideHttpClient(withInterceptorsFromDi()),
     provideAnimations(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     NG_EVENT_PLUGINS,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],

@@ -58,7 +58,7 @@ class Program
                         // Выводим на экран то, что пишут нашему боту, а также небольшую информацию об отправителе
                         Console.WriteLine($"{user.FirstName} ({user.Id}) написал сообщение: {message.Text}");
 
-                        WebAppInfo webAppInfo = new WebAppInfo() { Url = "https://habr.com/" };
+                        WebAppInfo webAppInfo = new WebAppInfo() { Url = "https://69fe-80-237-123-73.ngrok-free.app" };
 
                         if (message.Text == "/start")
                         {
