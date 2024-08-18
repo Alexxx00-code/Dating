@@ -18,14 +18,16 @@ namespace DatingApi.AuthenticationSchemes
 
     public class TelegramAuthenticationHandler : AuthenticationHandler<TelegramAuthenticationSchemeOptions>
     {
-        private readonly string botToken = "7544862344:AAGpAIzdLAe0oAZ2fyczCrRZd-eHcx0_kuY";
+        private readonly IConfiguration _configuration;
 
         public TelegramAuthenticationHandler(
             IOptionsMonitor<TelegramAuthenticationSchemeOptions> options,
             ILoggerFactory logger,
-            UrlEncoder encoder)
+            UrlEncoder encoder,
+            IConfiguration configuration)
             : base(options, logger, encoder)
         {
+            _configuration = configuration;
         }
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -102,6 +104,7 @@ namespace DatingApi.AuthenticationSchemes
             var data = "auth_date=" + parsedQueryString["auth_date"] + "\n" + "query_id=" + parsedQueryString["query_id"] + "\n" + "user=" + parsedQueryString["user"];
             var hash = parsedQueryString["hash"];
 
+            var botToken = _configuration["TelegramBotToken"];
             //генерируем  ключь из токен бота в документации это строка secret_key = HMAC_SHA256(<bot_token>, "WebAppData")
             byte[] secret_key = HMAC_SHA256(Encoding.UTF8.GetBytes(botToken), Encoding.UTF8.GetBytes("WebAppData"));
             //Далее генерируем строку из данных которые пришли и из секретного ключа, в документации это строка hex(HMAC_SHA256(data_check_string, secret_key))
