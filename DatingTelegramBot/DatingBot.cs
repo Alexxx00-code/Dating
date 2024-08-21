@@ -64,7 +64,7 @@ namespace DatingTelegramBot
                             // Выводим на экран то, что пишут нашему боту, а также небольшую информацию об отправителе
                             _log($"{user.FirstName} ({user.Id}) написал сообщение: {message.Text}");
 
-                            WebAppInfo webAppInfo = new WebAppInfo() { Url = "https://habr.com/" };
+                            WebAppInfo webAppInfo = new WebAppInfo() { Url = _url };
 
                             if (message.Text == "/start")
                             {
