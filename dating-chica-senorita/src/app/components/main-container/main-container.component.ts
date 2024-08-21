@@ -4,7 +4,7 @@ import { TuiAlertService } from '@taiga-ui/core';
 @Component({
   selector: 'app-main-container',
   templateUrl: './main-container.component.html',
-  styleUrl: './main-container.component.css',
+  styleUrl: './main-container.component.scss'
 })
 export class MainContainerComponent {
   constructor(private tuiAlertService: TuiAlertService) {}

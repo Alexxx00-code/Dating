@@ -4,7 +4,7 @@ import { TuiAlertService } from '@taiga-ui/core';
 @Component({
   selector: 'app-tab-bar',
   templateUrl: './tab-bar.component.html',
-  styleUrl: './tab-bar.component.css',
+  styleUrl: './tab-bar.component.scss'
 })
 export class TabBarComponent {
   constructor(private tuiAlertService: TuiAlertService) {}
