@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.json",
-    "build": "ng build --configuration production --output-path ../DatingApi/wwwroot",
-    "dev-build": "ng build --output-path ../DatingApi/wwwroot",
+    "build": "ng build --configuration production --output-path ../Dating.Api/wwwroot",
+    "dev-build": "ng build --output-path ../Dating.Api/wwwroot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

@@ -1,4 +1,4 @@
-using DatingApi.AuthenticationSchemes;
+using Dating.Api.AuthenticationSchemes;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 

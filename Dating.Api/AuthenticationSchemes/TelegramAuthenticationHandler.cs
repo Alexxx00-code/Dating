@@ -6,11 +6,11 @@ using System.Text.Encodings.Web;
 using System.Text.RegularExpressions;
 using System.Text;
 using System.Text.Json;
-using DatingApi.Models;
+using Dating.Api.Models;
 using System.Security.Cryptography;
 using System.Web;
 
-namespace DatingApi.AuthenticationSchemes
+namespace Dating.Api.AuthenticationSchemes
 {
     public class TelegramAuthenticationSchemeOptions
     : AuthenticationSchemeOptions

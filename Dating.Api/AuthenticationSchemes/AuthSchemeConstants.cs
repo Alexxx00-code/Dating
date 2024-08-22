@@ -1,4 +1,4 @@
-﻿namespace DatingApi.AuthenticationSchemes
+﻿namespace Dating.Api.AuthenticationSchemes
 {
     public class AuthSchemeConstants
     {

@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["DatingApi/DatingApi.csproj", "DatingApi/"]
-RUN dotnet restore "./DatingApi/DatingApi.csproj"
+COPY ["Dating.Api/Dating.Api.csproj", "Dating.Api/"]
+RUN dotnet restore "./Dating.Api/Dating.Api.csproj"
 COPY . .
-WORKDIR "/src/DatingApi"
-RUN dotnet build "./DatingApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Dating.Api"
+RUN dotnet build "./Dating.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DatingApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Dating.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DatingApi.dll"]
+ENTRYPOINT ["dotnet", "Dating.Api.dll"]

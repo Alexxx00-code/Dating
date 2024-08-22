@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DatingApi.Controllers
+namespace Dating.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
