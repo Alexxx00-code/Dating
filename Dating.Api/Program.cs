@@ -1,10 +1,19 @@
 using Dating.Api.AuthenticationSchemes;
+using Dating.Infrastructure.DataBase;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+ConfigurationManager configuration = builder.Configuration;
+
+
 // Add services to the container.
+
+builder.Services.AddDbContext<DataBaseContext>(options =>
+           options.UseNpgsql(configuration.GetConnectionString("WebApiDatabase")));
+
 
 builder.Services.AddCors();
 builder.Services.AddControllers();
@@ -45,6 +54,9 @@ builder.Services.AddAuthentication(
     options => options.DefaultScheme = AuthSchemeConstants.TelegramAuthScheme)
     .AddScheme<TelegramAuthenticationSchemeOptions, TelegramAuthenticationHandler>(
         AuthSchemeConstants.TelegramAuthScheme, options => { });
+
+
+builder.Services.AddScoped<DataBaseContext, DataBaseContext>();
 
 var app = builder.Build();
 
