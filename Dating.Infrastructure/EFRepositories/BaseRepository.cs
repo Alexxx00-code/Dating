@@ -3,9 +3,9 @@ using Dating.Domain.Models;
 using Dating.Infrastructure.DataBase;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dating.Infrastructure.Repositories
+namespace Dating.Infrastructure.EFRepositories
 {
-    public class BaseRepository<T> where T : BaseModel
+    public abstract class BaseRepository<T> where T : BaseModel
     {
         protected readonly DataBaseContext context;
 
@@ -17,25 +17,25 @@ namespace Dating.Infrastructure.Repositories
             this.getDbSet = getDbSet;
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             return getDbSet(context).AsNoTracking();
         }
 
-        public async Task<T> GetById(long id)
+        public virtual async Task<T> GetById(long id)
         {
             T? item = await getDbSet(context).FirstOrDefaultAsync(i => i.Id == id);
             return item is null ? throw new NotExistException(typeof(T), id) : item;
         }
 
-        public async Task<T> Create(T entity)
+        public virtual async Task<T> Create(T entity)
         {
             var newEntity = context.Add(entity);
             await context.SaveChangesAsync();
             return newEntity.Entity;
         }
 
-        public async Task<T> DeleteById(long id)
+        public virtual async Task<T> DeleteById(long id)
         {
             var item = await GetById(id);
 

@@ -1,7 +1,7 @@
 ﻿using Dating.Domain.Models;
 using Dating.Infrastructure.DataBase;
 
-namespace Dating.Infrastructure.Repositories
+namespace Dating.Infrastructure.EFRepositories
 {
     public class CityRepository : BaseParameterRepository<City>
     {
@@ -36,5 +36,10 @@ namespace Dating.Infrastructure.Repositories
     public class ZodiacSignRepository : BaseParameterRepository<ZodiacSign>
     {
         public ZodiacSignRepository(DataBaseContext context) : base(context, (i) => i.ZodiacSigns) { }
+    }
+
+    public class LanguageRepository : BaseParameterRepository<Language>
+    {
+        public LanguageRepository(DataBaseContext context) : base(context, (i) => i.Languages) { }
     }
 }

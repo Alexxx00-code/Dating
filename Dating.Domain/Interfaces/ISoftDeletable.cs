@@ -1,4 +1,4 @@
-﻿namespace Dating.Domain.Models
+﻿namespace Dating.Domain.Interfaces
 {
     public interface ISoftDeletable
     {

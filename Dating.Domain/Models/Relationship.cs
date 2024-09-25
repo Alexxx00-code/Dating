@@ -1,4 +1,6 @@
-﻿namespace Dating.Domain.Models
+﻿using Dating.Domain.Interfaces;
+
+namespace Dating.Domain.Models
 {
     public class Relationship : BaseModel, ISoftDeletable
     {

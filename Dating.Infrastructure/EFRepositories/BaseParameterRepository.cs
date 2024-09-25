@@ -1,15 +1,15 @@
 ﻿using Dating.Domain.Models;
-using Dating.Domain.Repositories;
+using Dating.Domain.Interfaces;
 using Dating.Infrastructure.DataBase;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dating.Infrastructure.Repositories
+namespace Dating.Infrastructure.EFRepositories
 {
-    public abstract class BaseParameterRepository<T> : BaseRepository<T>, IParameterRepository<T> where T : BaseParameter
+    public abstract class BaseParameterRepository<T> : BaseRepository<T>, IRepository<T> where T : BaseParameter
     {
         public BaseParameterRepository(DataBaseContext context, Func<DataBaseContext, DbSet<T>> getDbSet) : base(context, getDbSet) { }
 
-        public async Task<T> Update(T entity)
+        public virtual async Task<T> Update(T entity)
         {
             var oldEntity = await GetById(entity.Id);
 

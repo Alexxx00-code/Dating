@@ -1,8 +1,7 @@
-﻿using Dating.Domain.Models;
+﻿using Dating.Domain.Interfaces;
+using Dating.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using System.Reflection.Emit;
-using System.Xml;
 
 namespace Dating.Infrastructure.DataBase
 {
@@ -23,6 +22,7 @@ namespace Dating.Infrastructure.DataBase
         public DbSet<Tag> Tags { get; set; }
         public DbSet<UserImage> Images { get; set; }
         public DbSet<ZodiacSign> ZodiacSigns { get;set; }
+        public DbSet<Language> Languages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -110,12 +110,34 @@ namespace Dating.Infrastructure.DataBase
                     .HasForeignKey("UserId"));
 
             modelBuilder.Entity<User>()
+                .HasMany(u => u.Languages)
+                .WithMany()
+                .UsingEntity<Dictionary<string, object>>(
+                "UserLanguage",
+                j => j
+                    .HasOne<Language>()
+                    .WithMany()
+                    .HasForeignKey("LanguageId"),
+                j => j
+                    .HasOne<User>()
+                    .WithMany()
+                    .HasForeignKey("UserId"));
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.UserImages)
+                .WithOne(i => i.User);
+
+            modelBuilder.Entity<User>()
                 .HasMany(u => u.AsInitiatorRelationships)
                 .WithOne(r => r.FirstUser);
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.AsResponderRelationships)
                 .WithOne(r => r.SecondUser);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.TelegramId)
+                .IsUnique();
 
             base.OnModelCreating(modelBuilder);
         }

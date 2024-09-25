@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Dating.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitMIgration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,6 +65,19 @@ namespace Dating.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Languages",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Languages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SexOrientations",
                 columns: table => new
                 {
@@ -111,7 +124,7 @@ namespace Dating.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Firstname = table.Column<string>(type: "text", nullable: false),
                     TelegramId = table.Column<long>(type: "bigint", nullable: false),
-                    Birthdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Birthdate = table.Column<DateOnly>(type: "date", nullable: false),
                     GenderId = table.Column<long>(type: "bigint", nullable: false),
                     SexOrientationId = table.Column<long>(type: "bigint", nullable: false),
                     Latitude = table.Column<double>(type: "double precision", nullable: false),
@@ -212,6 +225,30 @@ namespace Dating.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Relationships_Users_SecondUserId",
                         column: x => x.SecondUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserLanguage",
+                columns: table => new
+                {
+                    LanguageId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserLanguage", x => new { x.LanguageId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_UserLanguage_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserLanguage_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -353,6 +390,11 @@ namespace Dating.Infrastructure.Migrations
                 column: "SecondUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserLanguage_UserId",
+                table: "UserLanguage",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserPartnerCity_UserId",
                 table: "UserPartnerCity",
                 column: "UserId");
@@ -398,6 +440,12 @@ namespace Dating.Infrastructure.Migrations
                 column: "SexOrientationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_TelegramId",
+                table: "Users",
+                column: "TelegramId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserTag_UserId",
                 table: "UserTag",
                 column: "UserId");
@@ -413,6 +461,9 @@ namespace Dating.Infrastructure.Migrations
                 name: "Relationships");
 
             migrationBuilder.DropTable(
+                name: "UserLanguage");
+
+            migrationBuilder.DropTable(
                 name: "UserPartnerCity");
 
             migrationBuilder.DropTable(
@@ -426,6 +477,9 @@ namespace Dating.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserTag");
+
+            migrationBuilder.DropTable(
+                name: "Languages");
 
             migrationBuilder.DropTable(
                 name: "ZodiacSigns");

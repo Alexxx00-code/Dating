@@ -7,11 +7,18 @@
         Refused
     }
 
-    public class Language
+    public class LocalizationLanguage
     {
-        public static string Russian { get; set; } = "ru";
+        private LocalizationLanguage(string value)
+        {
+            Value = value;
+        }
 
-        public static string English { get; set; } = "en";
+        public string Value { get; }
+
+        public static LocalizationLanguage Russian { get; } = new LocalizationLanguage("ru");
+
+        public static LocalizationLanguage English { get; } = new LocalizationLanguage("en");
     }
     /*
     public enum Gender

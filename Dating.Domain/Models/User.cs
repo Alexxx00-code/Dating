@@ -1,4 +1,7 @@
-﻿namespace Dating.Domain.Models
+﻿using Dating.Domain.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Dating.Domain.Models
 {
     public class User : BaseModel, ISoftDeletable
     {
@@ -8,7 +11,7 @@
 
         public long TelegramId { get; set; }
 
-        public DateTime Birthdate { get; set; }
+        public DateOnly Birthdate { get; set; }
 
         public long GenderId { get; set; }
 
@@ -28,9 +31,41 @@
 
         public virtual ICollection<City> PartnerCities { get; set; }
 
+        [NotMapped]
+        private long[]? partnerCitiesIds;
+
+        [NotMapped]
+        public long[] PartnerCitiesIds
+        {
+            get
+            {
+                return partnerCitiesIds ?? PartnerCities.Select(i => i.Id).ToArray();
+            }
+            set
+            {
+                partnerCitiesIds = value;
+            }
+        }
+
         public string BaseImageName { get; set; } = string.Empty;
 
         public virtual ICollection<UserImage> UserImages { get; set; }
+
+        [NotMapped]
+        private long[]? userImagesIds;
+
+        [NotMapped]
+        public long[] UserImagesIds
+        {
+            get
+            {
+                return userImagesIds ?? UserImages.Select(i => i.Id).ToArray();
+            }
+            set
+            {
+                userImagesIds = value;
+            }
+        }
 
         public string Description { get; set; } = string.Empty;
 
@@ -64,11 +99,43 @@
 
         public virtual ICollection<ZodiacSign> PartnerZodiacSigns { get; set; }
 
+        [NotMapped]
+        private long[]? partnerZodiacSignsIds;
+
+        [NotMapped]
+        public long[] PartnerZodiacSignsIds
+        {
+            get
+            {
+                return partnerZodiacSignsIds ?? PartnerZodiacSigns.Select(i => i.Id).ToArray();
+            }
+            set
+            {
+                partnerZodiacSignsIds = value;
+            }
+        }
+
         public long? ColorEyesId { get; set; }
 
         public virtual EyesColor? EyesColor { get; set; }
 
         public virtual ICollection<EyesColor> PartnerEyesColors { get; set; }
+
+        [NotMapped]
+        private long[]? partnerEyesColorsIds;
+
+        [NotMapped]
+        public long[] PartnerEyesColorsIds
+        {
+            get
+            {
+                return partnerEyesColorsIds ?? PartnerEyesColors.Select(i => i.Id).ToArray();
+            }
+            set
+            {
+                partnerEyesColorsIds = value;
+            }
+        }
 
         public long? HairColorId { get; set; }
 
@@ -76,7 +143,57 @@
 
         public virtual ICollection<HairColor> PartnerHairColors { get; set; }
 
+        [NotMapped]
+        private long[]? partnerHairColorsIds;
+
+        [NotMapped]
+        public long[] PartnerHairColorsIds
+        {
+            get
+            {
+                return partnerHairColorsIds ?? PartnerHairColors.Select(i => i.Id).ToArray();
+            }
+            set
+            {
+                partnerHairColorsIds = value;
+            }
+        }
+
         public virtual ICollection<Tag> Tags { get; set; }
+
+        [NotMapped]
+        private long[]? tagsIds;
+
+        [NotMapped]
+        public long[] TagsIds
+        {
+            get
+            {
+                return tagsIds ?? Tags.Select(i => i.Id).ToArray();
+            }
+            set
+            {
+                tagsIds = value;
+            }
+        }
+
+        public virtual ICollection<Language> Languages { get; set; }
+
+        [NotMapped]
+        private long[]? languagesIds;
+
+        [NotMapped]
+        public long[] LanguagesIds
+        {
+            get
+            {
+                return languagesIds ?? Languages.Select(i => i.Id).ToArray();
+            }
+            set
+            {
+                languagesIds = value;
+            }
+        }
 
         #endregion
 

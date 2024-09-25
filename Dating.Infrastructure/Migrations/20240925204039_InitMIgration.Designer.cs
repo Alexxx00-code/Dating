@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Dating.Infrastructure.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20240902003640_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240925204039_InitMIgration")]
+    partial class InitMIgration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,6 +91,23 @@ namespace Dating.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HairColors");
+                });
+
+            modelBuilder.Entity("Dating.Domain.Models.Language", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("Dating.Domain.Models.Relationship", b =>
@@ -177,8 +194,8 @@ namespace Dating.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("Birthdate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("Birthdate")
+                        .HasColumnType("date");
 
                     b.Property<long>("CityId")
                         .HasColumnType("bigint");
@@ -257,6 +274,9 @@ namespace Dating.Infrastructure.Migrations
 
                     b.HasIndex("SexOrientationId");
 
+                    b.HasIndex("TelegramId")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
@@ -297,6 +317,21 @@ namespace Dating.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ZodiacSigns");
+                });
+
+            modelBuilder.Entity("UserLanguage", b =>
+                {
+                    b.Property<long>("LanguageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("LanguageId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserLanguage");
                 });
 
             modelBuilder.Entity("UserPartnerCity", b =>
@@ -434,8 +469,25 @@ namespace Dating.Infrastructure.Migrations
 
             modelBuilder.Entity("Dating.Domain.Models.UserImage", b =>
                 {
-                    b.HasOne("Dating.Domain.Models.User", null)
+                    b.HasOne("Dating.Domain.Models.User", "User")
                         .WithMany("UserImages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UserLanguage", b =>
+                {
+                    b.HasOne("Dating.Domain.Models.Language", null)
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dating.Domain.Models.User", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
