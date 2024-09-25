@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dating.Aplication\Dating.Aplication.csproj" />
     <ProjectReference Include="..\Dating.Infrastructure\Dating.Infrastructure.csproj" />
   </ItemGroup>
 

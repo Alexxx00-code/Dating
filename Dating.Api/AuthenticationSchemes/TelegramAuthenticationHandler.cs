@@ -37,7 +37,7 @@ namespace Dating.Api.AuthenticationSchemes
             // validation comes in here
             if (!Request.Headers.ContainsKey(HeaderNames.Authorization))
             {
-                return Task.FromResult(AuthenticateResult.Fail("Header Not Found."));
+                return Task.FromResult(AuthenticateResult.Fail("Header Not Found"));
             }
 
             var header = Request.Headers[HeaderNames.Authorization].ToString();

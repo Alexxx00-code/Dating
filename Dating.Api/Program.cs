@@ -1,4 +1,8 @@
 using Dating.Api.AuthenticationSchemes;
+using Dating.Api.Utilities;
+using Dating.Aplication.Interfaces;
+using Dating.Aplication.Services;
+using Dating.Domain.Models;
 using Dating.Infrastructure.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -56,7 +60,21 @@ builder.Services.AddAuthentication(
         AuthSchemeConstants.TelegramAuthScheme, options => { });
 
 
-builder.Services.AddScoped<DataBaseContext, DataBaseContext>();
+builder.Services.AddScoped<DataBaseContext>();
+/*builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICityApi, CityOpenStreetMapApi>();
+builder.Services.AddScoped<IEnvParameters, SeterReqParameters>();
+builder.Services.AddScoped<IImageService, ImageService>();
+
+builder.Services.AddScoped<IParameterService<Gender>, ParameterService<Gender>>();
+builder.Services.AddScoped<IParameterService<City>, ParameterService<City>>();
+builder.Services.AddScoped<IParameterService<EyesColor>, ParameterService<EyesColor>>();
+builder.Services.AddScoped<IParameterService<HairColor>, ParameterService<HairColor>>();
+builder.Services.AddScoped<IParameterService<Language>, ParameterService<Language>>();
+builder.Services.AddScoped<IParameterService<SexOrientation>, ParameterService<SexOrientation>>();
+builder.Services.AddScoped<IParameterService<Tag>, ParameterService<Tag>>();
+builder.Services.AddScoped<IParameterService<ZodiacSign>, ParameterService<ZodiacSign>>();*/
+
 
 var app = builder.Build();
 
