@@ -17,7 +17,7 @@ namespace Dating.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ParameterModel>>> GetList()
         {
-            return await parameterService.GetList();
+            return Ok(await parameterService.GetList());
         }
     }
 

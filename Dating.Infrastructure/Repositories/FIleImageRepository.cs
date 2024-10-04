@@ -14,8 +14,10 @@ namespace Dating.Infrastructure.Repositories
         public async Task SaveImageAsync(string fileName, Stream imageData)
         {
             var filePath = Path.Combine(_uploadsFolder, fileName);
-            var fileStream = File.Open(filePath, FileMode.CreateNew);
-            await imageData.CopyToAsync(fileStream);
+            using (var fileStream = File.Open(filePath, FileMode.CreateNew))
+            {
+                await imageData.CopyToAsync(fileStream);
+            }
         }
 
         public async Task DeleteImageAsync(string fileName)
@@ -24,10 +26,11 @@ namespace Dating.Infrastructure.Repositories
             File.Delete(filePath);
         }
 
-        public async Task<Stream> GetImageAsync(string fileName)
+        public async Task<byte[]> GetImageAsync(string fileName)
         {
             var filePath = Path.Combine(_uploadsFolder, fileName);
-            return File.OpenRead(filePath);
+            byte[] bytes = await File.ReadAllBytesAsync(filePath);
+            return bytes;
         }
     }
 }

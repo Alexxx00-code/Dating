@@ -1,5 +1,6 @@
 ﻿using Dating.Aplication.Interfaces;
 using Dating.Aplication.Models;
+using Dating.Aplication.Utilities;
 using Dating.Domain.Interfaces;
 using Dating.Domain.Models;
 
@@ -48,20 +49,19 @@ namespace Dating.Aplication.Services
                 Longitude = newUser.Longitude,
                 CityId = city.Id,
             };
-
-            return UserModel.ToModel(await _userRepository.Create(user));
+            var userRes = await _userRepository.Create(user);
+            return _userRepository.GetAll().Where(i => i.Id == userRes.Id).ToModel().First();
         }
 
         public async Task<UserModel> GetUser()
         {
-            var user = _userRepository.GetAll().Where(i => i.TelegramId == _envParameters.TelegramId).FirstOrDefault();
-
+            var user = _userRepository.GetAll().Where(i => i.TelegramId == _envParameters.TelegramId).ToModel().First();
             if (user == null)
             {
                 throw new Exception();
             }
 
-            return UserModel.ToModel(user);
+            return user;
         }
     }
 }

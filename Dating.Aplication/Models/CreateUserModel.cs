@@ -1,6 +1,4 @@
-﻿using Dating.Domain.Models;
-
-namespace Dating.Aplication.Models
+﻿namespace Dating.Aplication.Models
 {
     public class CreateUserModel
     {

@@ -40,7 +40,7 @@ namespace Dating.Api.Controllers
                     BaseImagePath = imagePath
                 };
 
-                return Ok(_userService.Create(userModel));
+                return Ok(await _userService.Create(userModel));
             }
             catch (Exception ex)
             {
@@ -55,7 +55,7 @@ namespace Dating.Api.Controllers
         {
             try
             {
-                return Ok(_userService.GetUser());
+                return Ok(await _userService.GetUser());
             }
             catch (Exception ex)
             {

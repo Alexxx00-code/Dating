@@ -1,14 +1,33 @@
 ﻿using Dating.Aplication.Interfaces;
 using System.Globalization;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Dating.Aplication.Services
 {
     public class CityOpenStreetMapApi : ICityApi
     {
+        class PlaceInfo
+        {
+            [JsonPropertyName("address")]
+            public AddresInfo Address { get; set; }
+        }
+
+        class AddresInfo
+        {
+            [JsonPropertyName("city")]
+            public string? City { get; set; }
+
+            [JsonPropertyName("town")]
+            public string? Town { get; set; }
+
+            [JsonPropertyName("village")]
+            public string? Village { get; set; }
+        }
+
         public async Task<string> GetCityName(double latitude, double longitude)
         {
-            string url = $"https://nominatim.openstreetmap.org/reverse?format=geocodejson&lat={latitude.ToString(new NumberFormatInfo { NumberDecimalSeparator = "." })}&lon={longitude.ToString(new NumberFormatInfo { NumberDecimalSeparator = "." })}&addressdetails=1";
+            string url = $"https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat={latitude.ToString(new NumberFormatInfo { NumberDecimalSeparator = "." })}&lon={longitude.ToString(new NumberFormatInfo { NumberDecimalSeparator = "." })}&addressdetails=1";
 
             using (HttpClient client = new HttpClient())
             {
@@ -20,20 +39,16 @@ namespace Dating.Aplication.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonResponse = await response.Content.ReadAsStringAsync();
-                    var dic = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonResponse);
-                    if (dic != null)
+                    var place = JsonSerializer.Deserialize<PlaceInfo>(jsonResponse);
+                    if (place != null)
                     {
-                        var address = dic["address"];
+                        var address = place.Address;
                         if (address != null)
                         {
-                            var addressDic = JsonSerializer.Deserialize<Dictionary<string, string>>(address);
-                            if (addressDic != null)
+                            var city = address.City ?? address.Town ?? address.Village;
+                            if (city != null)
                             {
-                                var city = addressDic["city"] ?? addressDic["town"] ?? addressDic["village"];
-                                if (city != null)
-                                {
-                                    return city;
-                                }
+                                return city;
                             }
                         }
                     }

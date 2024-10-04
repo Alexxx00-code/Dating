@@ -29,7 +29,7 @@ namespace Dating.Domain.Models
 
         public virtual City City { get; set; }
 
-        public virtual ICollection<City> PartnerCities { get; set; }
+        public virtual ICollection<City> PartnerCities { get; set; } = [];
 
         [NotMapped]
         private long[]? partnerCitiesIds;
@@ -49,7 +49,7 @@ namespace Dating.Domain.Models
 
         public string BaseImageName { get; set; } = string.Empty;
 
-        public virtual ICollection<UserImage> UserImages { get; set; }
+        public virtual ICollection<UserImage> UserImages { get; set; } = [];
 
         [NotMapped]
         private long[]? userImagesIds;
@@ -69,9 +69,9 @@ namespace Dating.Domain.Models
 
         public string Description { get; set; } = string.Empty;
 
-        public virtual ICollection<Relationship> AsInitiatorRelationships { get; set; }
+        public virtual ICollection<Relationship> AsInitiatorRelationships { get; set; } = [];
 
-        public virtual ICollection<Relationship> AsResponderRelationships { get; set; }
+        public virtual ICollection<Relationship> AsResponderRelationships { get; set; } = [];
 
         //public ICollection<Gender> InterestedGenders { get; set; }
 
@@ -97,7 +97,7 @@ namespace Dating.Domain.Models
 
         public int? MaxPartnerYear { get; set; }
 
-        public virtual ICollection<ZodiacSign> PartnerZodiacSigns { get; set; }
+        public virtual ICollection<ZodiacSign> PartnerZodiacSigns { get; set; } = [];
 
         [NotMapped]
         private long[]? partnerZodiacSignsIds;
@@ -119,7 +119,7 @@ namespace Dating.Domain.Models
 
         public virtual EyesColor? EyesColor { get; set; }
 
-        public virtual ICollection<EyesColor> PartnerEyesColors { get; set; }
+        public virtual ICollection<EyesColor> PartnerEyesColors { get; set; } = [];
 
         [NotMapped]
         private long[]? partnerEyesColorsIds;
@@ -141,7 +141,7 @@ namespace Dating.Domain.Models
 
         public virtual HairColor? HairColor { get; set; }
 
-        public virtual ICollection<HairColor> PartnerHairColors { get; set; }
+        public virtual ICollection<HairColor> PartnerHairColors { get; set; } = [];
 
         [NotMapped]
         private long[]? partnerHairColorsIds;
@@ -159,7 +159,7 @@ namespace Dating.Domain.Models
             }
         }
 
-        public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; } = [];
 
         [NotMapped]
         private long[]? tagsIds;
@@ -177,7 +177,7 @@ namespace Dating.Domain.Models
             }
         }
 
-        public virtual ICollection<Language> Languages { get; set; }
+        public virtual ICollection<Language> Languages { get; set; } = [];
 
         [NotMapped]
         private long[]? languagesIds;

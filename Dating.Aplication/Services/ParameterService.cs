@@ -1,5 +1,6 @@
 ﻿using Dating.Aplication.Interfaces;
 using Dating.Aplication.Models;
+using Dating.Aplication.Utilities;
 using Dating.Domain.Interfaces;
 using Dating.Domain.Models;
 
@@ -16,7 +17,7 @@ namespace Dating.Aplication.Services
 
         public async Task<List<ParameterModel>> GetList()
         {
-            return _repository.GetAll().Select(i => ParameterModel.ToModel(i)).ToList();
+            return _repository.GetAll().ToModel().ToList();
         }
     }
 }

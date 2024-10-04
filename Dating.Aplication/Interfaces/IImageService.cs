@@ -4,7 +4,7 @@ namespace Dating.Aplication.Interfaces
 {
     public interface IImageService
     {
-        Task<Stream> GetImage(long id);
+        Task<byte[]> GetImage(long id);
 
         Task<string> UploadImageAsync(Stream file);
 

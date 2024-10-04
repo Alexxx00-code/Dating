@@ -10,7 +10,10 @@ namespace Dating.Api.Utilities
             var user = httpContextAccessor.HttpContext?.User;
             string? idStr = user?.Claims?.ToList()?.FirstOrDefault(i => i.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            TelegramId = long.Parse(idStr);
+            if (idStr != null)
+            {
+                TelegramId = long.Parse(idStr);
+            }
         }
 
         public long TelegramId { get; set; }

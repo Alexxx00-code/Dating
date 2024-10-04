@@ -1,5 +1,6 @@
 ﻿using Dating.Aplication.Interfaces;
 using Dating.Aplication.Models;
+using Dating.Aplication.Utilities;
 using Dating.Domain.Exceptions;
 using Dating.Domain.Interfaces;
 using Dating.Domain.Models;
@@ -22,32 +23,26 @@ namespace Dating.Aplication.Services
 
         public async Task<string> UploadImageAsync(Stream file)
         {
-            var fileName = "Base" + DateTime.UtcNow.ToString() + Guid.NewGuid().ToString();
+            var fileName = "Base" + DateTime.UtcNow.ToString("d_M_yyyy_HH_mm_ss") + Guid.NewGuid().ToString();
             await _imageRepository.SaveImageAsync(fileName, file);
             return fileName;
         }
 
-        public async Task<Stream> GetImage(long id)
+        public async Task<byte[]> GetImage(long id)
         {
             var imageUser = await _userImageRepository.GetById(id);
-            if(imageUser.UserId != await _authService.GetUserId())
-            {
-                throw new NoAccessException();
-            }
-
-
             return await _imageRepository.GetImageAsync(imageUser.Path);
         }
 
 
         public async Task<ImageModel> UploadImageForUserAsync(Stream file)
         {
-            var fileName = DateTime.UtcNow.ToString() + Guid.NewGuid().ToString();
+            var fileName = DateTime.UtcNow.ToString("d_M_yyyy_HH_mm_ss") + Guid.NewGuid().ToString();
 
             await _imageRepository.SaveImageAsync(fileName, file);
             var userId = await _authService.GetUserId();
 
-            var imageModel = ImageModel.ToModel(await _userImageRepository.Create(new UserImage { Path = fileName, UserId = userId }));
+            var imageModel = (await _userImageRepository.Create(new UserImage { Path = fileName, UserId = userId })).ToModel();
 
             return imageModel;
         }

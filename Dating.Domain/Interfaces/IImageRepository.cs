@@ -6,6 +6,6 @@
 
         Task DeleteImageAsync(string fileName);
 
-        Task<Stream> GetImageAsync(string fileName);
+        Task<byte[]> GetImageAsync(string fileName);
     }
 }

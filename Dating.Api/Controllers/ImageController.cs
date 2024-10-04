@@ -21,13 +21,13 @@ namespace Dating.Api.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<UserModel>> ImageUpload(AddImagesDTO imagesDTO)
+        public async Task<ActionResult<ImageModel>> ImageUpload(AddImagesDTO imagesDTO)
         {
             try
             {
                 var types = imagesDTO.Image.ContentType;//Test
 
-                return Ok(_imageService.UploadImageForUserAsync(imagesDTO.Image.OpenReadStream()));
+                return Ok(await _imageService.UploadImageForUserAsync(imagesDTO.Image.OpenReadStream()));
             }
             catch (Exception ex)
             {
@@ -52,15 +52,13 @@ namespace Dating.Api.Controllers
             }
         }
 
-        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(long id)
         {
             try
             {
-                var stream = await _imageService.GetImage(id);
-
-                return Ok(File(stream, "image/jpeg"));
+                var byteArr = await _imageService.GetImage(id);
+                return File(byteArr, "image/jpeg");
             }
             catch (Exception ex)
             {

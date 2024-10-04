@@ -1,6 +1,4 @@
-﻿using Dating.Domain.Models;
-
-namespace Dating.Aplication.Models
+﻿namespace Dating.Aplication.Models
 {
     public class UserModel
     {
@@ -53,37 +51,5 @@ namespace Dating.Aplication.Models
         public List<ParameterModel> Tags { get; set; }
 
         public List<ParameterModel> Languages { get; set; }
-
-        public static Func<User, UserModel> ToModel = (user) =>
-        {
-            return new UserModel
-            {
-                Id = user.Id,
-                Firstname = user.Firstname,
-                Birthdate = user.Birthdate,
-                Gender = ParameterModel.ToModel(user.Gender),
-                SexOrientation = ParameterModel.ToModel(user.SexOrientation),
-                City = ParameterModel.ToModel(user.City),
-                PartnerCities = user.PartnerCities.Select(i => ParameterModel.ToModel(i)).ToList(),
-                UserImagesPathes = user.UserImages.Select(i => ImageModel.ToModel(i)).ToList(),
-                Description = user.Description,
-                Surname = user.Surname,
-                Weight = user.Weight,
-                Height = user.Height,
-                MinPartnerHeight = user.MinPartnerHeight,
-                MaxPartnerHeight = user.MaxPartnerHeight,
-                MinPartnerWeight = user.MinPartnerWeight,
-                MaxPartnerWeight = user.MaxPartnerWeight,
-                MinPartnerYear = user.MinPartnerYear,
-                MaxPartnerYear = user.MaxPartnerYear,
-                PartnerZodiacSigns = user.PartnerZodiacSigns.Select(i => ParameterModel.ToModel(i)).ToList(),
-                EyesColor = user.EyesColor != null ? ParameterModel.ToModel(user.EyesColor) : null,
-                PartnerEyesColors = user.PartnerEyesColors.Select(i => ParameterModel.ToModel(i)).ToList(),
-                HairColor = user.HairColor != null ? ParameterModel.ToModel(user.HairColor) : null,
-                PartnerHairColors = user.PartnerHairColors.Select(i => ParameterModel.ToModel(i)).ToList(),
-                Tags = user.Tags.Select(i => ParameterModel.ToModel(i)).ToList(),
-                Languages = user.Languages.Select(i => ParameterModel.ToModel(i)).ToList()
-            };
-        };
     }
 }

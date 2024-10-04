@@ -2,8 +2,11 @@ using Dating.Api.AuthenticationSchemes;
 using Dating.Api.Utilities;
 using Dating.Aplication.Interfaces;
 using Dating.Aplication.Services;
+using Dating.Domain.Interfaces;
 using Dating.Domain.Models;
 using Dating.Infrastructure.DataBase;
+using Dating.Infrastructure.EFRepositories;
+using Dating.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
@@ -61,7 +64,22 @@ builder.Services.AddAuthentication(
 
 
 builder.Services.AddScoped<DataBaseContext>();
-/*builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<IRepository<User>, UserRepository>();
+builder.Services.AddScoped<IRepository<UserImage>, UserImageRepository>();
+builder.Services.AddScoped<IImageRepository>(provider =>
+        new FileImageRepository(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads")));
+builder.Services.AddScoped<IRepository<Gender>, GenderRepository>();
+builder.Services.AddScoped<IRepository<City>, CityRepository>();
+builder.Services.AddScoped<IRepository<EyesColor>, EyesColorRepository>();
+builder.Services.AddScoped<IRepository<HairColor>, HairColorRepository>();
+builder.Services.AddScoped<IRepository<Language>, LanguageRepository>();
+builder.Services.AddScoped<IRepository<SexOrientation>, SexOrientationRepository>();
+builder.Services.AddScoped<IRepository<Tag>, TagRepository>();
+builder.Services.AddScoped<IRepository<ZodiacSign>, ZodiacSignRepository>();
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICityApi, CityOpenStreetMapApi>();
 builder.Services.AddScoped<IEnvParameters, SeterReqParameters>();
 builder.Services.AddScoped<IImageService, ImageService>();
@@ -73,8 +91,9 @@ builder.Services.AddScoped<IParameterService<HairColor>, ParameterService<HairCo
 builder.Services.AddScoped<IParameterService<Language>, ParameterService<Language>>();
 builder.Services.AddScoped<IParameterService<SexOrientation>, ParameterService<SexOrientation>>();
 builder.Services.AddScoped<IParameterService<Tag>, ParameterService<Tag>>();
-builder.Services.AddScoped<IParameterService<ZodiacSign>, ParameterService<ZodiacSign>>();*/
+builder.Services.AddScoped<IParameterService<ZodiacSign>, ParameterService<ZodiacSign>>();
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
