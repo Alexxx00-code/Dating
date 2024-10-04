@@ -31,6 +31,8 @@ namespace Dating.Infrastructure.DataBase
                 optionsBuilder
                     .UseLazyLoadingProxies(true);
             }
+
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -138,6 +140,65 @@ namespace Dating.Infrastructure.DataBase
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.TelegramId)
                 .IsUnique();
+
+            var genders = new string[] { "Male", "Female" };
+            modelBuilder.Entity<Gender>().HasData(genders.Select((el, index) => new Gender { Id = index + 1, Name = el }));
+
+            var sexOrientations = new string[] { "Heterosexual", "Homosexual", "Bisexual" };
+            modelBuilder.Entity<SexOrientation>().HasData(sexOrientations.Select((el, index) => new SexOrientation { Id = index + 1, Name = el }));
+
+            var zodiavSigns = new string[] 
+            {
+                "Aquarius",
+                "Pisces",
+                "Aries",
+                "Taurus",
+                "Gemini",
+                "Cancer",
+                "Leo",
+                "Virgo",
+                "Libra",
+                "Scorpio",
+                "Sagittarius",
+                "Capricorn"
+            };
+            modelBuilder.Entity<ZodiacSign>().HasData(zodiavSigns.Select((el, index) => new ZodiacSign { Id = index + 1, Name = el }));
+
+            var eyesColors = new string[]
+            {
+                "Brown",
+                "Blue",
+                "Green",
+                "Grey",
+                "Another"
+            };
+            modelBuilder.Entity<EyesColor>().HasData(eyesColors.Select((el, index) => new EyesColor { Id = index + 1, Name = el }));
+
+            var hairColors = new string[]
+            {
+                "Brunette",
+                "BrownHaired",
+                "Blond",
+                "Redhead",
+                "Another"
+            };
+            modelBuilder.Entity<HairColor>().HasData(hairColors.Select((el, index) => new HairColor { Id = index + 1, Name = el }));
+
+            var languages = new string[]
+            {
+                "Russian",
+                "English",
+            };
+            modelBuilder.Entity<Language>().HasData(languages.Select((el, index) => new Language { Id = index + 1, Name = el }));
+
+            var tags = new string[]
+            {
+                "Sport",
+                "Movie",
+                "Serials",
+                "Politics"
+            };
+            modelBuilder.Entity<Tag>().HasData(tags.Select((el, index) => new Tag { Id = index + 1, Name = el }));
 
             base.OnModelCreating(modelBuilder);
         }

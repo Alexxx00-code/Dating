@@ -4,10 +4,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Dating.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMIgration : Migration
+    public partial class Init_Migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -372,6 +374,88 @@ namespace Dating.Infrastructure.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "EyesColors",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Brown" },
+                    { 2L, "Blue" },
+                    { 3L, "Green" },
+                    { 4L, "Grey" },
+                    { 5L, "Another" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Genders",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Male" },
+                    { 2L, "Female" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "HairColors",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Brunette" },
+                    { 2L, "BrownHaired" },
+                    { 3L, "Blond" },
+                    { 4L, "Redhead" },
+                    { 5L, "Another" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Languages",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Russian" },
+                    { 2L, "English" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SexOrientations",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Heterosexual" },
+                    { 2L, "Homosexual" },
+                    { 3L, "Bisexual" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tags",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Sport" },
+                    { 2L, "Movie" },
+                    { 3L, "Serials" },
+                    { 4L, "Politics" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ZodiacSigns",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Aquarius" },
+                    { 2L, "Pisces" },
+                    { 3L, "Aries" },
+                    { 4L, "Taurus" },
+                    { 5L, "Gemini" },
+                    { 6L, "Cancer" },
+                    { 7L, "Leo" },
+                    { 8L, "Virgo" },
+                    { 9L, "Libra" },
+                    { 10L, "Scorpio" },
+                    { 11L, "Sagittarius" },
+                    { 12L, "Capricorn" }
                 });
 
             migrationBuilder.CreateIndex(

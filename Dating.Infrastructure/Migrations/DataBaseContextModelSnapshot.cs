@@ -54,6 +54,33 @@ namespace Dating.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EyesColors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Brown"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "Blue"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "Green"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Name = "Grey"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Name = "Another"
+                        });
                 });
 
             modelBuilder.Entity("Dating.Domain.Models.Gender", b =>
@@ -71,6 +98,18 @@ namespace Dating.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Male"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "Female"
+                        });
                 });
 
             modelBuilder.Entity("Dating.Domain.Models.HairColor", b =>
@@ -88,6 +127,33 @@ namespace Dating.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HairColors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Brunette"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "BrownHaired"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "Blond"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Name = "Redhead"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Name = "Another"
+                        });
                 });
 
             modelBuilder.Entity("Dating.Domain.Models.Language", b =>
@@ -105,6 +171,18 @@ namespace Dating.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Languages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Russian"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "English"
+                        });
                 });
 
             modelBuilder.Entity("Dating.Domain.Models.Relationship", b =>
@@ -160,6 +238,23 @@ namespace Dating.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SexOrientations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Heterosexual"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "Homosexual"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "Bisexual"
+                        });
                 });
 
             modelBuilder.Entity("Dating.Domain.Models.Tag", b =>
@@ -177,6 +272,28 @@ namespace Dating.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Sport"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "Movie"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "Serials"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Name = "Politics"
+                        });
                 });
 
             modelBuilder.Entity("Dating.Domain.Models.User", b =>
@@ -314,6 +431,68 @@ namespace Dating.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ZodiacSigns");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Aquarius"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "Pisces"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "Aries"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Name = "Taurus"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Name = "Gemini"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Name = "Cancer"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            Name = "Leo"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            Name = "Virgo"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            Name = "Libra"
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            Name = "Scorpio"
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            Name = "Sagittarius"
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            Name = "Capricorn"
+                        });
                 });
 
             modelBuilder.Entity("UserLanguage", b =>
