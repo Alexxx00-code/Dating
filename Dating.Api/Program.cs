@@ -28,6 +28,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    c.MapType<DateOnly>(() => new OpenApiSchema { Type = "string", Format = "date" });
     // Add the authorization header to the Swagger UI
     c.AddSecurityDefinition(AuthSchemeConstants.TelegramAuthScheme, new OpenApiSecurityScheme
     {
