@@ -10,6 +10,7 @@ using Dating.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    c.SchemaFilter<RequireNonNullablePropertiesSchemaFilter>();
+    c.SupportNonNullableReferenceTypes(); // Sets Nullable flags appropriately.              
+    c.UseAllOfToExtendReferenceSchemas(); // Allows $ref enums to be nullable
+    c.UseAllOfForInheritance();  // Allows $ref objects to be nullable
     c.MapType<DateOnly>(() => new OpenApiSchema { Type = "string", Format = "date" });
     // Add the authorization header to the Swagger UI
     c.AddSecurityDefinition(AuthSchemeConstants.TelegramAuthScheme, new OpenApiSecurityScheme
@@ -126,3 +131,20 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public class RequireNonNullablePropertiesSchemaFilter : ISchemaFilter
+{
+    /// <summary>
+    /// Add to model.Required all properties where Nullable is false.
+    /// </summary>
+    public void Apply(OpenApiSchema model, SchemaFilterContext context)
+    {
+        var additionalRequiredProps = model.Properties
+            .Where(x => !x.Value.Nullable && !model.Required.Contains(x.Key))
+            .Select(x => x.Key);
+        foreach (var propKey in additionalRequiredProps)
+        {
+            model.Required.Add(propKey);
+        }
+    }
+}
