@@ -1,12 +1,14 @@
 ﻿using Dating.Api.Models;
 using Dating.Aplication.Interfaces;
-using Dating.Aplication.Models;
 using Dating.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dating.Api.Controllers
 {
-    public abstract class DictionaryController : ControllerBase
+
+    [ApiController]
+    [Route("api/[controller]")]
+    public class DictionaryController : ControllerBase
     {
         private readonly IParameterService<Gender> genderService;
         private readonly IParameterService<City> cityService;
