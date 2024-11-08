@@ -1,0 +1,559 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Dating.Api",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/Dictionary": {
+            "get": {
+                "tags": [
+                    "Dictionary"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DictionaryModel"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DictionaryModel"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DictionaryModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Image": {
+            "post": {
+                "tags": [
+                    "Image"
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            },
+                            "encoding": {
+                                "Image": {
+                                    "style": "form"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ImageModel"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ImageModel"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ImageModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Image"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/Image/{id}": {
+            "get": {
+                "tags": [
+                    "Image"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/Test/Test": {
+            "get": {
+                "tags": [
+                    "Test"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/User": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "Firstname",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Birthdate",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    },
+                    {
+                        "name": "GenderId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "SexOrientationId",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "Latitude",
+                        "in": "query",
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "Longitude",
+                        "in": "query",
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "ImageBase": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            },
+                            "encoding": {
+                                "ImageBase": {
+                                    "style": "form"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserModel"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserModel"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserModel"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserModel"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "DictionaryModel": {
+                "required": [
+                    "cities",
+                    "eyesColors",
+                    "genders",
+                    "hairColors",
+                    "languages",
+                    "sexOrientations",
+                    "tags",
+                    "zodiacSigns"
+                ],
+                "type": "object",
+                "properties": {
+                    "genders": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "cities": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "eyesColors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "hairColors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "languages": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "sexOrientations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "zodiacSigns": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ImageModel": {
+                "required": [
+                    "id",
+                    "url"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "url": {
+                        "type": "string",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ParameterModel": {
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "UserModel": {
+                "required": [
+                    "birthdate",
+                    "city",
+                    "description",
+                    "firstname",
+                    "gender",
+                    "id",
+                    "languages",
+                    "partnerCities",
+                    "partnerEyesColors",
+                    "partnerHairColors",
+                    "partnerZodiacSigns",
+                    "sexOrientation",
+                    "tags",
+                    "userImagesPathes"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "firstname": {
+                        "type": "string"
+                    },
+                    "birthdate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "gender": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ParameterModel"
+                            }
+                        ]
+                    },
+                    "sexOrientation": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ParameterModel"
+                            }
+                        ]
+                    },
+                    "city": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ParameterModel"
+                            }
+                        ]
+                    },
+                    "partnerCities": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "userImagesPathes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ImageModel"
+                        }
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "surname": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "height": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "weight": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "minPartnerHeight": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "maxPartnerHeight": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "minPartnerWeight": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "maxPartnerWeight": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "minPartnerYear": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "maxPartnerYear": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "partnerZodiacSigns": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "eyesColor": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ParameterModel"
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "partnerEyesColors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "hairColor": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ParameterModel"
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "partnerHairColors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    },
+                    "languages": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ParameterModel"
+                        }
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "securitySchemes": {
+            "tma": {
+                "type": "apiKey",
+                "description": "JWT Authorization header using the Telegram scheme. Example: \"tma token\"",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "tma": []
+        }
+    ]
+}

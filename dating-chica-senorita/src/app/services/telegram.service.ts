@@ -1,5 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { DictionaryService, UserService } from '../api/dating-chica/services';
+import { Observable } from 'rxjs';
+import { DictionaryModel } from '../api/dating-chica/models';
+import { ApiUserPost$Json$Params } from '../api/dating-chica/fn/user/api-user-post-json';
 
 @Injectable({
   providedIn: 'root',
@@ -7,18 +11,45 @@ import { DOCUMENT } from '@angular/common';
 export class TelegramService {
   private webApp: any;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  dictionary!: DictionaryModel;
+
+  constructor(@Inject(DOCUMENT) private document: Document,
+              private userService: UserService,
+              private dictionaryService: DictionaryService) {
+                this.init()
+              }
+
+  init() {
     const defaultView = this.document.defaultView as any;
     this.webApp = defaultView?.Telegram?.WebApp;
-    console.log(this.webApp);
     if (this.webApp) {
       this.setInitParams();
     } else {
-      console.warn('Веб-приложение Telegram недоступно.');
+      console.error('Веб-приложение Telegram недоступно.');
     }
   }
 
-  private setInitParams(){
+  create(params: ApiUserPost$Json$Params){
+    return this.userService.apiUserPost$Json(params)
+  }
+
+  getDictionary(): Observable<DictionaryModel> {
+    return this.dictionaryService.apiDictionaryGet$Json();
+  }
+
+  getCities() {
+    return this.dictionary.cities;
+  }
+
+  getEyesColors() {
+    return this.dictionary.eyesColors;
+  }
+
+  getGenders() {
+    return this.dictionary.genders;
+  }
+
+  private setInitParams() {
       // Включаем подтверждение закрытия
       this.webApp.isClosingConfirmationEnabled = true;
       this.setTgWebAppDataLocalStorage(this.webApp.initData)
@@ -39,7 +70,7 @@ export class TelegramService {
     return this.webApp?.initDataUnsafe || null;
   }
 
-  // Метод для получения токена авторизации
+  // Метод для получения `токена` авторизации
   getAuthToken(): string {
     const token = this.webApp?.initData;
     if (token && token.trim().length > 0 && token.trim() !== "query_id") {

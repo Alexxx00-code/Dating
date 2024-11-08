@@ -14,4 +14,21 @@ export class MainContainerComponent {
       .open('Basic <strong>HTML</strong>', { label: 'With a heading!' })
       .subscribe();
   }
+
+  expanded = false;
+  open = false;
+  switch = false;
+
+  drawer = {
+      Components: [
+          {name: 'Button', icon: 'ICON'},
+          {name: 'Input', icon: 'ICON'},
+          {name: 'Tooltip', icon: 'ICON'},
+      ],
+      Essentials: [
+          {name: 'Getting started', icon: 'ICON'},
+          {name: 'Showcase', icon: 'ICON'},
+          {name: 'Typography', icon: 'ICON'},
+      ],
+  };
 }

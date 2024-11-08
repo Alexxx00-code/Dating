@@ -14,6 +14,8 @@ import { MainContainerComponent } from './components/main-container/main-contain
 import { BarComponent } from './components/bar/bar.component';
 import { TAIGA_UI_MODULES } from "./all-module-ui/taiga-ui-all-module";
 import { NG_EVENT_PLUGINS } from '@taiga-ui/event-plugins';
+import { ApiModule } from './api/dating-chica/api.module';
+import { environment } from './environments/environment';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { NG_EVENT_PLUGINS } from '@taiga-ui/event-plugins';
     MainContainerComponent
   ],
   imports: [
+    ApiModule.forRoot({ rootUrl: environment.api }),
     CommonModule,
     FormsModule,
     BrowserModule,

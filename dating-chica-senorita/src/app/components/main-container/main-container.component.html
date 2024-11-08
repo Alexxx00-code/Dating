@@ -1,22 +1,47 @@
-<tui-accordion class="container">
-    <tui-accordion-item>
-        Taiga UI cdk
-        <ng-template tuiAccordionItemContent>
-            Development kit consisting of the low level tools and abstractions used to develop Taiga UI Angular entities
-        </ng-template>
-    </tui-accordion-item>
-    <tui-accordion-item>
-        Taiga UI core
-        <ng-template tuiAccordionItemContent>
-            <div #content>
-                Basic elements needed to develop components, directives and more using Taiga UI design system
-            </div>
-        </ng-template>
-    </tui-accordion-item>
-    <tui-accordion-item>
-        Taiga UI kit
-        <ng-template tuiAccordionItemContent>
-            The main set of components used to build Taiga UI based Angular applications
-        </ng-template>
-    </tui-accordion-item>
-</tui-accordion>
+<header tuiNavigationHeader>
+    <button
+    title="Menu"
+    tuiIconButton
+    tuiNavigationDrawer
+    type="button"
+    [(open)]="open"
+>
+    <tui-data-list>
+        <tui-opt-group
+            *ngFor="let group of drawer | keyvalue"
+            [label]="group.key"
+        >
+            <button
+                *ngFor="let item of group.value"
+                tuiOption
+                type="button"
+                (click)="open = false"
+            >
+                <img
+                    alt="icon"
+                    [src]="item.icon"
+                />
+                {{ item.name }}
+            </button>
+        </tui-opt-group>
+        <tui-opt-group>
+            <label tuiOption>
+                <input
+                    size="s"
+                    tuiSwitch
+                    type="checkbox"
+                    [(ngModel)]="switch"
+                />
+                Dark mode
+            </label>
+        </tui-opt-group>
+    </tui-data-list>
+</button>
+</header>
+<div [style.display]="'flex'">
+    <aside [tuiNavigationAside]="false">Sidebar content</aside>
+    <main tuiNavigationMain>
+      <nav tuiNavigationNav>Breadcrumbs, tabs, buttons</nav>
+      Main content
+    </main>
+</div>

@@ -3,16 +3,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import { TelegramService } from './telegram.service';
-import { TestService } from './test.service';
-
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   refresh = false;
-  constructor(
-    private telegramService: TelegramService,
-    private testService: TestService,
-    private router: Router) {}
+  constructor(private telegramService: TelegramService, private router: Router) {}
 
   intercept(req: HttpRequest<unknown>,next: HttpHandler): Observable<HttpEvent<unknown>> {
     req = req.clone({
@@ -23,7 +18,6 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401) {
-          this.testService.getTest();
         }
         return throwError(() => err);
       })

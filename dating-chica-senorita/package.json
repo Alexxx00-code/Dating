@@ -7,7 +7,8 @@
     "build": "ng build --configuration production --output-path ../Dating.Api/wwwroot",
     "dev-build": "ng build --output-path ../Dating.Api/wwwroot",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "openapi-gen": "ng-openapi-gen --input src/app/api/dating-chica.openapi.json --ignoreUnusedModels false --output src/app/api/dating-chica"
   },
   "private": true,
   "dependencies": {
@@ -32,6 +33,7 @@
     "@taiga-ui/layout": "^4.2.0",
     "@taiga-ui/styles": "^4.2.0",
     "@telegram-apps/sdk": "^1.1.3",
+    "ng-openapi-gen": "^0.52.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
