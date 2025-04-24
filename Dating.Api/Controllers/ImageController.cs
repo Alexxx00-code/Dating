@@ -25,9 +25,9 @@ namespace Dating.Api.Controllers
         {
             try
             {
-                var types = imagesDTO.Image.ContentType;//Test
+                var types = imagesDTO.Image.Select(i => i.ContentType).ToList();//Test
 
-                return Ok(await _imageService.UploadImageForUserAsync(imagesDTO.Image.OpenReadStream()));
+                return Ok(await _imageService.UploadImagesForUserAsync(imagesDTO.Image.Select(image => image.OpenReadStream()).ToList()));
             }
             catch (Exception ex)
             {

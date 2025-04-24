@@ -2,6 +2,6 @@
 {
     public class AddImagesDTO
     {
-        public IFormFile Image { get; set; }
+        public IFormFile[] Image { get; set; }
     }
 }

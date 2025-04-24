@@ -6,6 +6,8 @@
 
         public long UserId { get; set; }
 
+        public bool FaceVerification { get; set; }
+
         public virtual User User { get; set; }
     }
 }

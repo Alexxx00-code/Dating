@@ -402,6 +402,9 @@ namespace Dating.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<bool>("FaceVerification")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("text");
