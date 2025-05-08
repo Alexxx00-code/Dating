@@ -1,6 +1,6 @@
-import { TuiDataList, TuiIcon, TuiRoot } from '@taiga-ui/core';
+import { TuiDataList, TuiGroup, TuiIcon, TuiRoot } from '@taiga-ui/core';
 import { TuiButton, TuiTitle } from '@taiga-ui/core';
-import { TuiAccordion, TuiSwitch, TuiTabs } from '@taiga-ui/kit';
+import { TuiAccordion, TuiDrawer, TuiSwitch, TuiTabs } from '@taiga-ui/kit';
 import { TuiPlatform } from '@taiga-ui/cdk';
 import {TuiAppBar, TuiNavigation} from '@taiga-ui/layout';
 import { TuiTabBar } from '@taiga-ui/addon-mobile';
@@ -14,6 +14,8 @@ export const TAIGA_UI_MODULES = [
   TuiTitle,
   TuiSwitch,
   TuiIcon,
+  TuiDrawer,
+  TuiGroup,
   ...TuiTabs,
   ...TuiDataList,
   ...TuiNavigation,
