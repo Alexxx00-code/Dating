@@ -10,15 +10,13 @@ namespace Dating.Infrastructure.EFRepositories
         {
         }
 
-        public async Task<UserImage> Update(UserImage item)
+        public async Task<bool> Update(UserImage item)
         {
             var oldImage = await GetById(item.Id);
 
             oldImage.Path = item.Path;
 
-            context.SaveChanges();
-
-            return oldImage;
+            return await context.SaveChangesAsync() > 0;
         }
     }
 }

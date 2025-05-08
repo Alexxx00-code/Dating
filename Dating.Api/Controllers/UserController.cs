@@ -1,6 +1,7 @@
 ﻿using Dating.Api.Models;
 using Dating.Aplication.Interfaces;
 using Dating.Aplication.Models;
+using Dating.Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,10 +43,35 @@ namespace Dating.Api.Controllers
 
                 return Ok(await _userService.Create(userModel));
             }
-            catch (Exception ex)
+            catch (MyException ex)
             {
                 _logger.LogError(ex.ToString());
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return Problem();
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        public async Task<ActionResult<UserModel>> Update(UpdateUserDTO userDTO)
+        {
+            try
+            {
+                return Ok(await _userService.Update(userDTO));
+            }
+            catch (MyException ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return Problem();
             }
         }
 
@@ -57,10 +83,15 @@ namespace Dating.Api.Controllers
             {
                 return Ok(await _userService.GetUser());
             }
-            catch (Exception ex)
+            catch (MyException ex)
             {
                 _logger.LogError(ex.ToString());
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return Problem();
             }
         }
     }

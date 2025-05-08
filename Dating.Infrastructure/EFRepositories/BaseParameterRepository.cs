@@ -9,14 +9,13 @@ namespace Dating.Infrastructure.EFRepositories
     {
         public BaseParameterRepository(DataBaseContext context, Func<DataBaseContext, DbSet<T>> getDbSet) : base(context, getDbSet) { }
 
-        public virtual async Task<T> Update(T entity)
+        public virtual async Task<bool> Update(T entity)
         {
             var oldEntity = await GetById(entity.Id);
 
             oldEntity.Name = entity.Name;
 
-            await context.SaveChangesAsync();
-            return oldEntity;
+            return await context.SaveChangesAsync() > 0;
         }
     }
 }

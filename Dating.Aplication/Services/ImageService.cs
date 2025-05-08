@@ -41,31 +41,23 @@ namespace Dating.Aplication.Services
         public async Task<ImageModel[]> UploadImagesForUserAsync(List<Stream> files)
         {
             var userId = await _authService.GetUserId();
-            var userImageVerCount = _userImageRepository.GetAll().Count(i => i.UserId == userId && i.FaceVerification);
-            var user = await _userRepository.GetById(userId);
-            var baseImage = await _imageRepository.GetImageAsync(user.BaseImageName);
-            var baseImageStream = new MemoryStream(baseImage);
-
-            var newUserImageVerList = files.Select(i => faceCompare.FaceCheckMatch(baseImageStream, i)).ToList();
-
-            if (newUserImageVerList.Count(i => i) + userImageVerCount < 4)
-            {
-                throw new ValidateException("There are not enough face images");
-            }
             if (files.Count + _userImageRepository.GetAll().Count(i => i.UserId == userId) > 10)
             {
                 throw new ValidateException("Lots of images");
             }
 
             List<ImageModel> imageModels = new List<ImageModel>(files.Count);
+            var userImageVerCount = _userImageRepository.GetAll().Count(i => i.UserId == userId && i.FaceVerification);
+            var user = await _userRepository.GetById(userId);
+            var baseImage = await _imageRepository.GetImageAsync(user.BaseImageName);
+            var baseImageStream = new MemoryStream(baseImage);
             try
             {
-                var verificationEnum = newUserImageVerList.GetEnumerator();
                 foreach (var image in files)
                 {
+                    var verification = faceCompare.FaceCheckMatch(baseImageStream, image);
                     var fileName = await UploadImageForUserAsync(image);
-                    verificationEnum.MoveNext();
-                    var imageModel = (await _userImageRepository.Create(new UserImage { Path = fileName, UserId = userId, FaceVerification = verificationEnum.Current })).ToModel();
+                    var imageModel = (await _userImageRepository.Create(new UserImage { Path = fileName, UserId = userId, FaceVerification = verification })).ToModel();
                     imageModels.Add(imageModel);
                 }
             }

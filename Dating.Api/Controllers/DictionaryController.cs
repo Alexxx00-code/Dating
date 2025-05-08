@@ -45,7 +45,7 @@ namespace Dating.Api.Controllers
             DictionaryModel model = new DictionaryModel {
                 Cities = await cityService.GetList(),
                 EyesColors = await eyesColorService.GetList(),
-                Genders = await hairColorService.GetList(),
+                Genders = await genderService.GetList(),
                 Tags = await tagService.GetList(),
                 HairColors = await hairColorService.GetList(),
                 Languages = await languageService.GetList(),

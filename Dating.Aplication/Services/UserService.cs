@@ -1,6 +1,7 @@
 ﻿using Dating.Aplication.Interfaces;
 using Dating.Aplication.Models;
 using Dating.Aplication.Utilities;
+using Dating.Domain.Exceptions;
 using Dating.Domain.Interfaces;
 using Dating.Domain.Models;
 
@@ -27,7 +28,7 @@ namespace Dating.Aplication.Services
 
             if(userOld != null)
             {
-                throw new Exception();
+                throw new MyException("User is exist");
             }
 
             var cityName = await _cityApi.GetCityName(newUser.Latitude, newUser.Longitude);
@@ -52,6 +53,39 @@ namespace Dating.Aplication.Services
             };
             var userRes = await _userRepository.Create(user);
             return _userRepository.GetAll().Where(i => i.Id == userRes.Id).ToModel().First();
+        }
+
+        public async Task<UserModel> Update(UpdateUserModel model)
+        {
+            var userOld = _userRepository.GetAll().Where(i => i.TelegramId == _envParameters.TelegramId).FirstOrDefault();
+
+            if (userOld == null)
+            {
+                throw new NotExistException("User is not exist");
+            }
+
+            userOld.PartnerCitiesIds = model.PartnerCitiesIds;
+            userOld.Description = model.Description;
+            userOld.Surname = model.Surname;
+            userOld.Height = model.Height;
+            userOld.Weight = model.Weight;
+            userOld.MinPartnerHeight = model.MinPartnerHeight;
+            userOld.MaxPartnerHeight = model.MaxPartnerHeight;
+            userOld.MinPartnerWeight = model.MinPartnerWeight;
+            userOld.MaxPartnerWeight = model.MaxPartnerWeight;
+            userOld.MinPartnerYear = model.MinPartnerYear;
+            userOld.MaxPartnerYear = model.MaxPartnerYear;
+            userOld.PartnerZodiacSignsIds = model.PartnerZodiacSignsIds;
+            userOld.ColorEyesId = model.ColorEyesId;
+            userOld.PartnerEyesColorsIds = model.PartnerEyesColorsIds;
+            userOld.HairColorId = model.HairColorId;
+            userOld.PartnerHairColorsIds = model.PartnerHairColorsIds;
+            userOld.TagsIds = model.TagsIds;
+            userOld.LanguagesIds = model.LanguagesIds;
+
+            await _userRepository.Update(userOld);
+
+            return await GetUser();
         }
 
         public async Task<UserModel> GetUser()

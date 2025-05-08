@@ -51,9 +51,16 @@ namespace Dating.Infrastructure.EFRepositories
             return await base.Create(user);
         }
 
-        public async Task<User> Update(User user)
+        public async Task<bool> Update(User user)
         {
-            var oldUser = await GetById(user.Id);
+            var oldUser = context.Users.Where(i => i.Id == user.Id)
+                .Include(i => i.PartnerCities)
+                .Include(i => i.PartnerZodiacSigns)
+                .Include(i => i.PartnerEyesColors)
+                .Include(i => i.PartnerHairColors)
+                .Include(i => i.Tags)
+                .Include(i => i.Languages)
+                .FirstOrDefault();
 
             #region PersonalInformation
             oldUser.Firstname = user.Firstname;
@@ -90,10 +97,8 @@ namespace Dating.Infrastructure.EFRepositories
             UpdateManyToMany(oldUser.Tags, context.Tags, user.TagsIds);
             UpdateManyToMany(oldUser.Languages, context.Languages, user.LanguagesIds);
             #endregion
-
-            await context.SaveChangesAsync();
-
-            return oldUser;
+            
+            return await context.SaveChangesAsync() > 0;
         }
 
         private void UpdateManyToMany<T>(ICollection<T> values, DbSet<T> collection, long[] ids) where T : BaseModel

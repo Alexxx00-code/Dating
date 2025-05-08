@@ -100,7 +100,8 @@ namespace Dating.Aplication.Utilities
         {
             return images.Select(image => new ImageModel
             {
-                Id = image.Id
+                Id = image.Id,
+                FaceVerification = image.FaceVerification,
             });
         }
 
@@ -108,7 +109,8 @@ namespace Dating.Aplication.Utilities
         {
             return new ImageModel
             {
-                Id = image.Id
+                Id = image.Id,
+                FaceVerification = image.FaceVerification,
             };
         }
     }

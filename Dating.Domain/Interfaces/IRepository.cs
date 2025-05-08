@@ -7,7 +7,7 @@ namespace Dating.Domain.Interfaces
         IQueryable<T> GetAll();
         Task<T> GetById(long id);
         Task<T> Create(T entity);
-        Task<T> Update(T entity);
+        Task<bool> Update(T entity);
         Task<T> DeleteById(long id);
     }
 }

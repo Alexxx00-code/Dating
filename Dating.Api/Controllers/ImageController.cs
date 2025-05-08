@@ -1,6 +1,7 @@
 ﻿using Dating.Api.Models;
 using Dating.Aplication.Interfaces;
 using Dating.Aplication.Models;
+using Dating.Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,10 +30,15 @@ namespace Dating.Api.Controllers
 
                 return Ok(await _imageService.UploadImagesForUserAsync(imagesDTO.Image.Select(image => image.OpenReadStream()).ToList()));
             }
-            catch (Exception ex)
+            catch (MyException ex)
             {
                 _logger.LogError(ex.ToString());
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return Problem();
             }
         }
 
@@ -45,10 +51,15 @@ namespace Dating.Api.Controllers
                 await _imageService.DeleteImage(id);
                 return Ok();
             }
-            catch (Exception ex)
+            catch (MyException ex)
             {
                 _logger.LogError(ex.ToString());
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return Problem();
             }
         }
 
@@ -60,10 +71,15 @@ namespace Dating.Api.Controllers
                 var byteArr = await _imageService.GetImage(id);
                 return File(byteArr, "image/jpeg");
             }
-            catch (Exception ex)
+            catch (MyException ex)
             {
                 _logger.LogError(ex.ToString());
                 return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return Problem();
             }
         }
     }

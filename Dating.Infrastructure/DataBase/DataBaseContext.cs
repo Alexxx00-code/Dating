@@ -39,6 +39,10 @@ namespace Dating.Infrastructure.DataBase
         {
             ConfigureSoftDeleteFilter(modelBuilder);
 
+           /* modelBuilder
+            .Entity<User>()
+            .ToTable("Users", t => t.IsTemporal());*/
+
             //modelBuilder.Entity<ISoftDeletable>().HasQueryFilter(m => m.DeletedAt == null);
 
             modelBuilder.Entity<User>()
