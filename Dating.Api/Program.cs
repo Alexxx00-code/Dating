@@ -4,6 +4,7 @@ using Dating.Aplication.Interfaces;
 using Dating.Aplication.Services;
 using Dating.Domain.Interfaces;
 using Dating.Domain.Models;
+using Dating.FaceRecognition;
 using Dating.Infrastructure.DataBase;
 using Dating.Infrastructure.EFRepositories;
 using Dating.Infrastructure.Repositories;
@@ -98,6 +99,7 @@ builder.Services.AddScoped<IParameterService<Language>, ParameterService<Languag
 builder.Services.AddScoped<IParameterService<SexOrientation>, ParameterService<SexOrientation>>();
 builder.Services.AddScoped<IParameterService<Tag>, ParameterService<Tag>>();
 builder.Services.AddScoped<IParameterService<ZodiacSign>, ParameterService<ZodiacSign>>();
+builder.Services.AddSingleton<FaceCompare, FaceCompare>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

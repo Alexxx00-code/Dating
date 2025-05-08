@@ -48,6 +48,7 @@ namespace Dating.Aplication.Services
                 Latitude = newUser.Latitude,
                 Longitude = newUser.Longitude,
                 CityId = city.Id,
+                BaseImageName = newUser.BaseImagePath,
             };
             var userRes = await _userRepository.Create(user);
             return _userRepository.GetAll().Where(i => i.Id == userRes.Id).ToModel().First();
@@ -55,10 +56,10 @@ namespace Dating.Aplication.Services
 
         public async Task<UserModel> GetUser()
         {
-            var user = _userRepository.GetAll().Where(i => i.TelegramId == _envParameters.TelegramId).ToModel().First();
+            var user = _userRepository.GetAll().Where(i => i.TelegramId == _envParameters.TelegramId).ToModel().FirstOrDefault();
             if (user == null)
             {
-                throw new Exception();
+                throw new Exception("User is not registered");
             }
 
             return user;

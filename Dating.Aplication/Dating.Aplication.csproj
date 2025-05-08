@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dating.Domain\Dating.Domain.csproj" />
+    <ProjectReference Include="..\FaceRecognition\Dating.FaceRecognition.csproj" />
   </ItemGroup>
 
 </Project>

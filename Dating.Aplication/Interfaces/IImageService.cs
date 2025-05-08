@@ -8,7 +8,7 @@ namespace Dating.Aplication.Interfaces
 
         Task<string> UploadImageAsync(Stream file);
 
-        Task<ImageModel> UploadImageForUserAsync(Stream file);
+        Task<ImageModel[]> UploadImagesForUserAsync(List<Stream> files);
 
         Task DeleteImage(long id);
     }
